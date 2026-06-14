@@ -1,0 +1,37 @@
+{
+  "_comment": "CEX NPU Connection Registry. Add as many ARM NPU servers as needed. No limit.",
+  "_doc": "Each entry is an ARM Linux machine running cex-npu-linux server.",
+  "version": "1.0",
+  "connection_protocol": "CXNP/TCP",
+  "ports": {
+    "inference_rx": 7474,
+    "health":       7476,
+    "signal_bus":   7477,
+    "expansion_start": 7478
+  },
+  "discovery": {
+    "auto_scan":        true,
+    "scan_subnet":      "192.168.1.0/24",
+    "scan_interval_s":  30,
+    "probe_timeout_s":  2,
+    "auth_key_env":     "CEX_NET_KEY"
+  },
+  "servers": [
+    {
+      "_comment": "Example entry -- replace with real server IP",
+      "id":          "npu-01",
+      "host":        "192.168.1.100",
+      "port":        7474,
+      "health_port": 7476,
+      "enabled":     false,
+      "label":       "Qualcomm RB5 - Living room",
+      "tags":        ["primary", "qualcomm-htp"]
+    }
+  ],
+  "aggregation": {
+    "strategy":            "round_robin",
+    "max_queue_per_server": 8,
+    "health_check_interval_s": 15,
+    "remove_after_failures": 3
+  }
+}
